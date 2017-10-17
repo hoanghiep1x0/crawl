@@ -2102,7 +2102,11 @@ var _sData = function () {
                         ng = nightmare(payload);
                         _uid = payload._uid, uri = payload.uri, tl = payload.tl, img = payload.img, txt = payload.txt, tag = payload.tag, type = payload.type, rv = payload.rv, js = payload.js;
                         _uri = _checkUrl(payload, link);
-                        _context.next = 5;
+
+
+                        console.log("1");
+
+                        _context.next = 6;
                         return ng.goto(_uri).evaluate(function () {
                             return document.querySelector('body').innerHTML;
                         }).end().then(function (document) {
@@ -2115,18 +2119,20 @@ var _sData = function () {
                                 $(rv).remove();
                             }
 
+                            console.log("2");
+
                             // title
                             var _tl = $(tl).text();
                             // desc 
-
+                            console.log("3");
                             var _desc = $('meta[name="description"]').attr("content") || '';
                             // img
-
+                            console.log("4");
                             var _img = $(img).css("background-image") ? $(img).css("background-image").slice(4, -1).replace(/"/g, "") : $(img).attr("src");
 
                             // content
                             var _content = '';
-
+                            console.log("5");
                             $(txt).each(function (i, e) {
                                 _content += $(this).html();
                                 // .replace(/\n/g, '') + '<br />';
@@ -2136,11 +2142,13 @@ var _sData = function () {
 
                             var _tags = [];
 
+                            console.log("6");
                             // console.log(tag);
                             $(tag).each(function (i, value) {
                                 _tags.push($(value).text());
                             });
 
+                            console.log("7");
                             try {
                                 var markdown = turndownService.turndown(_content);
                             } catch (err) {
@@ -2168,10 +2176,10 @@ var _sData = function () {
                             return { err: err };
                         });
 
-                    case 5:
+                    case 6:
                         return _context.abrupt('return', _context.sent);
 
-                    case 6:
+                    case 7:
                     case 'end':
                         return _context.stop();
                 }
