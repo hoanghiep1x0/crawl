@@ -60127,11 +60127,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = {
     components: { 'nav-menu-bar': _navMenuBar2.default },
     created: function created() {
-        var _this = this;
+        var _this2 = this;
 
+        var _this = this;
         this.$store.dispatch('REQUEST_AUTH').then(function (res) {
-            if (!res.authenticated && _this.$route.meta.auth) {
+
+            if (!res.authenticated && _this2.$route.meta.auth) {
                 _this.$router.push('/login');
+            } else {
+                _this.$store.dispatch('MEMBER_INFO', { _id: res.session.id });
             }
         });
     }
@@ -60403,20 +60407,22 @@ exports.default = {
         fullName: function fullName(fn, ln) {
             return fn + ' ' + ln;
         }
-    },
-    created: function created() {
-        var _this = this;
-
-        if (!this.$store.getters.info) {
-            this.$store.dispatch('REQUEST_AUTH').then(function (res) {
-                if (!res.authenticated && _this.$route.meta.auth) {
-                    _this.$router.push('/login');
-                } else {
-                    _this.$store.dispatch('MEMBER_INFO', { _id: res.id });
-                }
-            });
-        }
     }
+    // created() {
+
+    //     this.$store.dispatch('REQUEST_AUTH').then(res => {
+
+    //         this.$store.dispatch('MEMBER_INFO', { _id: res.body.id });
+
+    //         // if (!res.body.authenticated && this.$route.meta.auth) {
+    //         //     this.$store.dispatch('MEMBER_INFO', { _id: res.body.id });
+    //         //     this.$router.push('/login');
+
+    //         // } else {
+    //         //     this.$store.dispatch('MEMBER_INFO', { _id: res.body.id });
+    //         // }
+    //     });
+    // }
 };
 
 /***/ }),
